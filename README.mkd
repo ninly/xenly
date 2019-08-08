@@ -1,0 +1,9 @@
+# Xenharmonic tools and whimsy
+
+Xenly is a cacophanous assortment of functions and tools for playing with and thinking about xenharmonic theory, constructing scales and tuning files, and mounting a global takeover.
+
+## TODO
+
+* More temperament-exploration functions
+* Generate some cool diagrams/plots
+* Port the MATLAB stuff to Python
