@@ -1,9 +1,12 @@
-function [m,p] = monzo(r,limit)
-if nargin == 1
+function [m,p] = monzo(r, limit)
+% MONZO convert a rational number to monzo form (vector of powers of
+% its prime factors.
+
+if ~exist('limit', 'var')
     limit = 0; % produce "minimum" monzo (no zero-padding)
 end
 
-tol = 1e-12;
+tol = eps('double'); % TODO: test input against tolerance
 [n,d] = rat(r,tol);
 
 f = factor(n);
@@ -12,12 +15,12 @@ efflimit = max([f g]); % effective prime limit of the given interval ratio
 if limit == 0
     p = primes(efflimit);
 elseif limit < efflimit
-    error(['prime limit must be at least ' num2str(efflimit) ' for this interval']);
+    error(['monzo() : prime limit must be at least ' num2str(efflimit) ' for the given interval']);
 else
     p = primes(limit);
 end
 
-h = nan(1,length(p));
+h = nan(length(p),1);
 j = h;
 m = h;
 
