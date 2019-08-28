@@ -1,5 +1,5 @@
-function [te] = teNorm(m)
-% TENORM calculate the Tenney-Euclidean norm of a given monzo
+function [te] = te_norm(m)
+% TE_NORM calculate the Tenney-Euclidean norm of a given monzo
 %
 % inputs:
 %   m : A just interval represented as a vector of powers of its prime
