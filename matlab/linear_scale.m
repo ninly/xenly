@@ -1,4 +1,4 @@
-function [deg,I,mos,step] = linearScale(N, gen, per)
+function [deg,I,is_MOS,step_size] = linear_scale(N, gen, per)
 % LINEARSCALE build a rank-2 linear scale and represent its degree
 %   values (and some associated data)
 %
@@ -27,19 +27,19 @@ if ~exist('gen','var')
 end
 
 deg = nan(N-1,1);
-nextDeg = 0;
+next_deg = 0;
 for idx = 1:N-1
-    nextDeg = nextDeg+gen;
-    while nextDeg > per
-        nextDeg = nextDeg-per;
+    next_deg = next_deg + gen;
+    while next_deg > per
+        next_deg = next_deg - per;
     end
 
-    if ismember(nextDeg,deg) || nextDeg == per
+    if ismember(next_deg,deg) || next_deg == per
         warning(['This generator cannot produce more than ' num2str(idx) ' scale degrees.']);
         deg(isnan(deg)) = []; % clear allocated spaces that won't be filled
         break
     else
-        deg(idx) = nextDeg;
+        deg(idx) = next_deg;
     end
 end
 
@@ -51,8 +51,8 @@ end
 I = [I(1:end-1);0];
 
 % determine whether scale is a moment of symmetry
-step = round(diff([0;deg]), 10); % round to 10 decimal places
-mos = false;
-if length(unique(step)) == 2
-    mos = true;
+step_size = round(diff([0;deg]), 10); % round to 10 decimal places
+is_MOS = false;
+if length(unique(step_size)) == 2
+    is_MOS = true;
 end
