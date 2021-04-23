@@ -5,7 +5,7 @@ ccc;
 
 origEdo = 12;
 srcEdo = 12; % we start with a regular 12-edo guitar
-trgEdo = 26; % the ed2 we're moving the bridge to approximate
+trgEdo = 22; % the ed2 we're moving the bridge to approximate
 nFrets = 14;
 
 sourceScaleLen = 648;  % standard long-scale length is 648 mm
@@ -25,27 +25,29 @@ fretPos_DarregNewFrets = diff([sourceScaleLen;fretPos_Orig])./2;
 fretPos_Darreg = nan(2*nFrets,1);
 fretPos_Darreg(2:2:end) = fretPos_Orig;
 fretPos_Darreg(1:2:end) = fretPos_Orig - fretPos_DarregNewFrets;
+fretPos_Darreg = [sourceScaleLen; fretPos_Darreg];
 
 % calculate actual 24edo fret positions
-fretPos_24edo = calc_fret_positions(24, 24, sourceScaleLen);
+fretPos_24edo = [sourceScaleLen; calc_fret_positions(24, 2*nFrets, sourceScaleLen)];
 
 %%
 % Let's see how far off we are from true 24 edo
 % linear distance error between correct fret position and hack
 % errLinear = fretPos_24edo - fretPos_Darreg;
-% centsErr = cents(fretPos_Darreg./fretPos_24edo);
+% % negative because positive distance error makes for flatter notes
+% centsErr = -cents(fretPos_Darreg./fretPos_24edo);
 
 %%
 % Now we move the bridge to a distance from the nut that is
 % twice that of the target pseudo-EDth octave fret
-targetDistanceFromNut = sourceScaleLen - fretPos_Darreg(trgEdo);
+targetDistanceFromNut = sourceScaleLen - fretPos_Darreg(trgEdo + 1);
 targetScaleLen = 2*targetDistanceFromNut;   % distance from nut to new position of bridge
 
 scaleLenDelta = sourceScaleLen - targetScaleLen;            % how far it moved
 % fretPosDelta = fretPos_Darreg - fretPos_24edo;
 
 % frets distance from bridge if the guitar were designed for the target ed2
-fretPosTarget = calc_fret_positions(trgEdo, 2*nFrets, targetScaleLen);
+fretPosTarget = [targetScaleLen; calc_fret_positions(trgEdo, 2*nFrets, targetScaleLen)];
 % and where they actually are (relative to bridge)
 fretPosHack = fretPos_Darreg - scaleLenDelta;
 
@@ -55,7 +57,7 @@ fretPosHack = fretPos_Darreg - scaleLenDelta;
 
 %%
 % error in millimeters between correct fret position and hack
-errLinear = fretPosTarget - fretPos_Darreg;
+errLinear = fretPosTarget - fretPosHack;
 % errLinear_nut = fretPos12_nut-fretPosNew_nut;
 centsErr = cents(fretPosHack./fretPosTarget);
 
@@ -63,7 +65,7 @@ centsErr = cents(fretPosHack./fretPosTarget);
 figure;
 ax = axes();
 % yyaxis left;
-plot(0:2*nFrets, [0;centsErr],'o:');
+plot(0:2*nFrets, [centsErr],'o:');
 
 title(['Octave at fret ' num2str(trgEdo) ' on Darreg pseudo-' num2str(2*srcEdo) 'edo guitar']);
 xlabel('Fret Number');

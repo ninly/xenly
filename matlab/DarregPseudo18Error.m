@@ -5,7 +5,7 @@ ccc;
 
 origEdo = 6;
 srcEdo = 6; % we start with a regular 12-edo guitar stripped of every other fret
-trgEdo = 20; % the ed2 we're moving the bridge to approximate
+trgEdo = 18; % the ed2 we're moving the bridge to approximate
 nFrets = 8;
 
 sourceScaleLen = 648;  % standard long-scale length is 648 mm

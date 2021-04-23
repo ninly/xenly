@@ -3,9 +3,9 @@ ccc;
 
 % nFrets = 10; % set number of frets desired (minimum 1 octave)
 
-srcEd2 = 19; % the ed2 the frets were designed for
-trgEd2 = 17; % the ed2 we're "hacking" to achieve
-nFrets = max([srcEd2 trgEd2]);
+srcEd2 = 12; % the ed2 the frets were designed for
+trgEd2 = 11; % the ed2 we're "hacking" to achieve
+nFrets = 12;
 
 scaleLenSource = 648;  % standard long-scale length is 648 mm
 
