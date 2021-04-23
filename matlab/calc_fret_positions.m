@@ -14,7 +14,7 @@ end
 if ~exist('doPlot','var')
     do_plot = 0;
 end
-if ~exist('nFrets','var')
+if ~exist('n_frets','var')
     n_frets = equal_div; % default to one octave of frets
 end
 if ~exist('scale_len','var')
