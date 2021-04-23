@@ -65,7 +65,7 @@ ax = axes();
 % yyaxis left;
 plot(0:2*nFrets, [0;centsErr],'o:');
 
-title(['Octave at fret ' num2str(trgEdo) ' on Darreg pseudo-' num2str(2*srcEdo) ' guitar']);
+title(['Octave at fret ' num2str(trgEdo) ' on Darreg pseudo-' num2str(2*srcEdo) 'edo guitar']);
 xlabel('Fret Number');
 ylabel('Error (cents)');
 % ylimVal(1) = ceil(max(abs(centsErr)));
