@@ -1,4 +1,8 @@
-function centsErr = bridgeHackError(sourceEdo, targetEdo)
+function centsErr = bridgeHackError(sourceEdo, targetEdo, savePlot)
+
+if ~exist('savePlot', 'var')
+    savePlot = 0;
+end
 
 numFrets = ceil(targetEdo * 9/8);
 scaleLen = 1;
@@ -28,3 +32,13 @@ line([targetEdo;targetEdo],[ax.YLim(1);ax.YLim(2)], 'Color', '#222', 'LineStyle'
 grid on, grid minor
 
 title(['Octave at ' num2str(targetEdo) '\\' num2str(sourceEdo)])
+
+if savePlot
+    fn = ['edo' num2str(sourceEdo) '_octaveAt' num2str(targetEdo)];
+    % save Matlab .fig file
+    fn_fig = [fn '.fig'];
+    saveas(fig, fn_fig);
+    % save a jpg
+    fn_jpg = [fn '.jpg'];
+    saveas(fig, fn_jpg);
+end
